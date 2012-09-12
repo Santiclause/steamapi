@@ -26,24 +26,6 @@ TF2WHBOTNAMES = {'76561198049572592': 'solidbeetle', '76561198050360350': 'punch
                  '76561198049615186': 'damagingdrum', '76561198066912810': 'wrathfulwrench',
                  '76561198049572574': 'astonishingflames', '76561198066190432': 'nefariousnoise',
                  '76561198049914683': 'livingorange', '76561198049604903': 'intimidatingfairy'}
-class AdvancedTimer(Thread):
-    def __init__(self, timeout, func):
-        Thread.__init__(self)
-        self._wait = Event()
-        self.timeout = timeout
-        self.func = func
-
-    def run(self):
-        t = 0.0
-        s = 0.0
-        while not self._wait.wait(s - t):
-            #dynamic wait interval to account for varying function execution times
-            s = time.time() + self.timeout
-            self.func()
-            t = time.time()
-
-    def stop(self):
-        self._wait.set()
         
 class WarehouseInventory(steam.Inventory):
     def __init__(self, schema=None):
